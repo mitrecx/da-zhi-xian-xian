@@ -1,9 +1,7 @@
 package top.mitrecx.dazhixianxian.config;
 
 
-import top.mitrecx.dazhixianxian.handler.MyAuthenticationFailureHandler;
-import top.mitrecx.dazhixianxian.handler.MyAuthenticationSuccessHandler;
-import top.mitrecx.dazhixianxian.handler.MyLogoutSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,10 +11,25 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import top.mitrecx.dazhixianxian.handler.MyAccessDeniedHandler;
+import top.mitrecx.dazhixianxian.handler.MyAuthenticationFailureHandler;
+import top.mitrecx.dazhixianxian.handler.MyAuthenticationSuccessHandler;
+import top.mitrecx.dazhixianxian.handler.MyLogoutSuccessHandler;
+import top.mitrecx.dazhixianxian.service.JsonAuthenticationEntryPoint;
 
 @EnableWebSecurity
 @Configuration
 public class MySecurityConfig {
+    @Autowired
+    private MyAccessDeniedHandler accessDeniedHandler;
+    @Autowired
+    private JsonAuthenticationEntryPoint jsonAuthenticationEntryPoint;
+
+//    @Bean
+//    public AuthenticationEntryPoint jsonAuthenticationEntryPoint() {
+//        return new JsonAuthenticationEntryPoint();
+//    }
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -45,6 +58,9 @@ public class MySecurityConfig {
                             authorize.anyRequest().authenticated();
                         }
                 )
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(jsonAuthenticationEntryPoint)
 //                .httpBasic(withDefaults())
         ;
         return http.build();
