@@ -19,8 +19,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class MySecurityConfig {
 
-    @Autowired
-    private CustomAuthenticationProvider authProvider;
+//    @Autowired
+//    private CustomAuthenticationProvider authProvider;
 
     @Bean
     PasswordEncoder passwordEncoder() {

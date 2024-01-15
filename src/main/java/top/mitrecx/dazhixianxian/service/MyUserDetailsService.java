@@ -1,6 +1,7 @@
 package top.mitrecx.dazhixianxian.service;
 
-import org.apache.commons.lang3.StringUtils;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,12 +9,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import top.mitrecx.dazhixianxian.common.dataformat.ObjectMappers;
+import top.mitrecx.dazhixianxian.dal.dao.ext.DzUserExtMapper;
+import top.mitrecx.dazhixianxian.dal.entity.DzUser;
 
 @Service("userDetailsService")
+@Slf4j
 public class MyUserDetailsService implements UserDetailsService {
-
-    private static final String dbUsername = "Rosie";
-    private static final String dbPassword = new BCryptPasswordEncoder().encode("123");
+    @Resource
+    private DzUserExtMapper dzUserExtMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username)
@@ -23,20 +27,16 @@ public class MyUserDetailsService implements UserDetailsService {
          * todo: username password auth 通过数据库 获取.
          * 如果用户不存在, 抛出 UsernameNotFoundException
          */
+        DzUser dzUser = dzUserExtMapper.selectByLoginName(username);
+        log.info("登录用户名: {}, 用户信息: {}", username, ObjectMappers.mustWriteValue(dzUser));
 
-        if (StringUtils.equals(username, "admin")) {
-            return new User("admin",
-                    dbPassword, // DB 里存储的就是加密后的密码
-                    AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal,/main.html"));
-        }
+        return new User("admin",
+                dzUser.getPassword(), // DB 里存储的就是加密后的密码
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal,/main.html"));
+    }
 
-        if (StringUtils.equals(username, dbUsername)) {
-            return new User(dbUsername,
-                    dbPassword, // DB 里存储的就是加密后的密码
-                    AuthorityUtils.commaSeparatedStringToAuthorityList("normal,/main.html"));
-        }
-
-        System.out.println("用户名不存在...");
-        throw new UsernameNotFoundException("not found.");
+    public static void main(String[] args) {
+        String encode = new BCryptPasswordEncoder().encode("xxxxxx");
+        System.out.println(encode);
     }
 }

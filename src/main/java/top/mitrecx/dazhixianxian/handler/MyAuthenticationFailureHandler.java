@@ -1,5 +1,6 @@
 package top.mitrecx.dazhixianxian.handler;
 
+import org.apache.http.entity.ContentType;
 import top.mitrecx.dazhixianxian.common.dataformat.ObjectMappers;
 import top.mitrecx.dazhixianxian.vo.DzResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
                                         AuthenticationException exception)
             throws IOException {
         DzResponse<Object> r = new DzResponse.Builder<>("01").message("认证失败").build();
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType(ContentType.APPLICATION_JSON.toString());
         try (PrintWriter out = response.getWriter()) {
             out.print(ObjectMappers.mustWriteValue(r));
             out.flush();

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.mitrecx.dazhixianxian.dal.dao.ext.DzUserExtMapper">
+
+    <select id="selectByLoginName" resultMap="top.mitrecx.dazhixianxian.dal.dao.DzUserMapper.BaseResultMap">
+        select id,
+               login_name,
+               username,
+               password,
+               email,
+               phone,
+               status,
+               delete_flag,
+               created_at,
+               last_updated_at,
+               last_login_at
+        from dz_user
+        where login_name = #{loginName}
+    </select>
+</mapper>

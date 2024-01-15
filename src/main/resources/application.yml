@@ -1,6 +1,26 @@
 server:
   port: 8001
+  # 设置会话超时时间（单位：秒）
+  servlet:
+    session:
+      timeout: 1800
+
 
 logging:
   level:
     root: INFO
+
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  datasource:
+    url: jdbc:mysql://localhost:3306/dazhi
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml,classpath*:mapper/ext/*.xml
+#    type-aliases-package: com.example.model
