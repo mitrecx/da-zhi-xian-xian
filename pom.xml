@@ -135,7 +135,7 @@
                 <version>1.4.0</version> <!-- 使用最新版本 -->
                 <configuration>
                     <!-- MyBatis Generator配置文件的位置 -->
-                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                    <configurationFile>src/main/resources/static/generatorConfig.xml</configurationFile>
                     <!-- 设置为 true 表示覆盖已存在的文件 -->
                     <overwrite>true</overwrite>
                 </configuration>
