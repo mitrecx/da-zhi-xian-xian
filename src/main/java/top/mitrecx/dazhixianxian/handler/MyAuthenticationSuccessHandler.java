@@ -1,12 +1,12 @@
 package top.mitrecx.dazhixianxian.handler;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import top.mitrecx.dazhixianxian.common.dataformat.ObjectMappers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +19,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     public MyAuthenticationSuccessHandler(String url) {
         this.url = url;
     }
+
     public MyAuthenticationSuccessHandler() {
     }
 
@@ -32,7 +33,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         log.info(user.getAuthorities().toString());
 
         PrintWriter writer = response.getWriter();
-        writer.write("token123");
+        writer.write("cookies: " + ObjectMappers.mustWriteValue(request.getCookies()));
         writer.flush();
     }
 
