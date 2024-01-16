@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/test")
 public class LoginController {
 
-    private final SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
-    private SecurityContextRepository securityContextRepository =
-            new HttpSessionSecurityContextRepository();
-
     @GetMapping("/hello")
     public String hello() {
         return "hello world...";

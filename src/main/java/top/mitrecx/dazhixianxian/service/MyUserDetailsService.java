@@ -19,24 +19,25 @@ public class MyUserDetailsService implements UserDetailsService {
     @Resource
     private DzUserExtMapper dzUserExtMapper;
 
+    public static void main(String[] args) {
+        String encode = new BCryptPasswordEncoder().encode("xxxxxx");
+        System.out.println(encode);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
 
-        /*
-         * todo: username password auth 通过数据库 获取.
-         * 如果用户不存在, 抛出 UsernameNotFoundException
-         */
         DzUser dzUser = dzUserExtMapper.selectByLoginName(username);
         log.info("登录用户名: {}, 用户信息: {}", username, ObjectMappers.mustWriteValue(dzUser));
+
+        // 如果用户不存在, 抛出 UsernameNotFoundException
+        if (dzUser == null) {
+            throw new UsernameNotFoundException("not found.");
+        }
 
         return new User("admin",
                 dzUser.getPassword(), // DB 里存储的就是加密后的密码
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal,/main.html"));
-    }
-
-    public static void main(String[] args) {
-        String encode = new BCryptPasswordEncoder().encode("xxxxxx");
-        System.out.println(encode);
     }
 }
