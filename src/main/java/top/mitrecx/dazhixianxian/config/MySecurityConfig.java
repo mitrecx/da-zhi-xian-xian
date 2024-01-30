@@ -17,6 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.session.ChangeSessionIdAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -42,33 +45,15 @@ public class MySecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        // configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:5173"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.addAllowedOrigin("*");
-//        configuration.addAllowedHeader("*");
-//        configuration.addAllowedMethod("*");
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource2() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(List.of("http://localhost"));
-//        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -80,6 +65,7 @@ public class MySecurityConfig {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
         auth.setUserDetailsService(userDetailsService);
         auth.setPasswordEncoder(passwordEncoder());
+
         return auth;
     }
 
@@ -125,12 +111,14 @@ public class MySecurityConfig {
         JsonAuthenticationFilter loginFilter = new JsonAuthenticationFilter(authenticationManager(http));
         // 自定义接收的url，默认是login
         loginFilter.setFilterProcessesUrl("/v1/login");
-        // TODO: mitre 2024/1/16 暂时解决 json 参数登录时 sessionId 不变的问题
+        // 解决 json 参数登录时 sessionId 不变的问题
         loginFilter.setSessionAuthenticationStrategy(new ChangeSessionIdAuthenticationStrategy());
         // 设置login成功返回的JSON数据
         loginFilter.setAuthenticationSuccessHandler(new MyAuthenticationSuccessHandler());
         // 设置login失败返回的JSON数据
         loginFilter.setAuthenticationFailureHandler(new MyAuthenticationFailureHandler());
+        // 解决 登录成功后, session 无效问题(其他接口还是要求认证问题)
+        loginFilter.setSecurityContextRepository(new HttpSessionSecurityContextRepository());
 
         return loginFilter;
     }

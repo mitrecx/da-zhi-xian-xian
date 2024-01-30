@@ -35,9 +35,9 @@ public class MyUserDetailsService implements UserDetailsService {
         if (dzUser == null) {
             throw new UsernameNotFoundException("not found.");
         }
-
-        return new User("admin",
-                dzUser.getPassword(), // DB 里存储的就是加密后的密码
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal,/main.html"));
+        return User.withUsername(username)
+                .password(dzUser.getPassword())
+                .authorities(AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal,/main.html"))
+                .build();
     }
 }
