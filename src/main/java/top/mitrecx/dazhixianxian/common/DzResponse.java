@@ -1,4 +1,4 @@
-package top.mitrecx.dazhixianxian.vo;
+package top.mitrecx.dazhixianxian.common;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,20 +20,53 @@ public class DzResponse<T> {
         this.data = data;
     }
 
+    public static <T> Builder<T> builder() {
+        return new Builder<>();
+    }
+
+
     // 静态内部类Builder
     public static class Builder<T> {
         private String code;
         private String message;
         private T data;
 
-        // 构造方法，至少需要传入code
-        public Builder(String code) {
+        public Builder() {
+        }
+
+        public Builder<T> code(String code) {
             this.code = code;
+            return this;
         }
 
         // 可选的方法，用于设置message
         public Builder<T> message(String message) {
             this.message = message;
+            return this;
+        }
+
+        public Builder<T> ok(T data) {
+            this.code = BizCode.OK.code;
+            this.message = BizCode.OK.getMessage();
+            this.data = data;
+            return this;
+        }
+
+        public Builder<T> ok() {
+            this.code = BizCode.OK.code;
+            this.message = BizCode.OK.getMessage();
+            return this;
+        }
+
+        public Builder<T> fail(BizCode bizCode, T data) {
+            fail(bizCode);
+            this.data = data;
+            return this;
+        }
+
+        public Builder<T> fail(BizCode bizCode) {
+            this.code = bizCode.code;
+            this.message = bizCode.getMessage();
             return this;
         }
 

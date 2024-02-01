@@ -4,8 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import top.mitrecx.dazhixianxian.common.DzResponse;
 import top.mitrecx.dazhixianxian.common.dataformat.ObjectMappers;
 
 import java.io.IOException;
@@ -27,13 +27,8 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
-        User user = (User) authentication.getPrincipal();
-        log.info(user.getUsername());
-        log.info(user.getPassword());
-        log.info(user.getAuthorities().toString());
-
         PrintWriter writer = response.getWriter();
-        writer.write("cookies: " + ObjectMappers.mustWriteValue(request.getCookies()));
+        writer.write(ObjectMappers.mustWriteValue(DzResponse.builder().ok(request.getCookies()).build()));
         writer.flush();
     }
 

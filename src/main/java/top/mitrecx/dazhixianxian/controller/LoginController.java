@@ -1,12 +1,9 @@
 package top.mitrecx.dazhixianxian.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextHolderStrategy;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.security.web.context.SecurityContextRepository;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import top.mitrecx.dazhixianxian.common.DzResponse;
 
 @RestController
 @RequestMapping("/v1/test")
@@ -18,8 +15,8 @@ public class LoginController {
     }
 
     @GetMapping("/hello2")
-    public String hello2() {
-        return "hello world2...";
+    public DzResponse<String> hello2() {
+        return DzResponse.<String>builder().ok("hello world2").build();
     }
 
 }
