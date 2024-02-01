@@ -80,6 +80,7 @@ public class MySecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> {
                             request.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                                    .requestMatchers("/v1/about").permitAll()
                                     .requestMatchers("/v1/**").authenticated()
                                     .anyRequest().permitAll();
                         }
