@@ -123,6 +123,7 @@ public class MySecurityConfig {
         // 设置login失败返回的JSON数据
         loginFilter.setAuthenticationFailureHandler(new MyAuthenticationFailureHandler());
         // 解决 登录成功后, session 无效问题(其他接口还是要求认证问题)
+        // https://www.modb.pro/db/629856
         loginFilter.setSecurityContextRepository(new HttpSessionSecurityContextRepository());
 
         return loginFilter;
