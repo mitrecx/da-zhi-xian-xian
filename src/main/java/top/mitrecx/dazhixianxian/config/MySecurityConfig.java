@@ -81,6 +81,9 @@ public class MySecurityConfig {
                 .authorizeHttpRequests(request -> {
                             request.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                     .requestMatchers("/v1/about").permitAll()
+                                    .requestMatchers("/doc/**").permitAll()
+                                    .requestMatchers("/doc").permitAll()
+                                    .requestMatchers("/v1/english2-word/**").permitAll()
                                     .requestMatchers("/v1/**").authenticated()
                                     .anyRequest().permitAll();
                         }

@@ -9,6 +9,12 @@ server:
 logging:
   level:
     root: INFO
+#    org.mybatis: DEBUG
+#    org.apache.ibatis: DEBUG
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 spring:
   data:
@@ -24,3 +30,24 @@ spring:
 mybatis:
   mapper-locations: classpath*:mapper/*.xml,classpath*:mapper/ext/*.xml
 #    type-aliases-package: com.example.model
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+knife4j:
+  enable: true
+  openapi:
+    title: 接口文档
+    description: "大智闲闲接口文档"
+    email: mitrecx@163.com
+    concat: cx
+    version: v1.0.0
+    group:
+      default:
+        group-name: default
+        api-rule: package
+        api-rule-resources:
+          - top.mitrecx.dazhixianxian.controller

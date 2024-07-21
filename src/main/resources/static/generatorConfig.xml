@@ -35,12 +35,20 @@
         </javaClientGenerator>
 
         <!-- 生成表对应的实体类、Mapper接口和XML文件 -->
-        <table tableName="dz_user" domainObjectName="DzUser"
-        enableCountByExample="false"
-        enableUpdateByExample="false"
-        enableDeleteByExample="false"
-        enableSelectByExample="false"
-        selectByExampleQueryId="false"
+<!--        <table tableName="dz_user" domainObjectName="DzUser"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"-->
+<!--        />-->
+
+        <table tableName="t_english2_word" domainObjectName="English2Word"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"
         />
     </context>
 </generatorConfiguration>

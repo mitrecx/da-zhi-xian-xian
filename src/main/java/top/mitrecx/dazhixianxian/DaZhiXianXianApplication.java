@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication(scanBasePackages = {"top.mitrecx.dazhixianxian"})
-@MapperScan(basePackages = {"top.mitrecx.dazhixianxian.dal.dao"})
+@MapperScan(basePackages = {"top.mitrecx.dazhixianxian.mapper"})
 public class DaZhiXianXianApplication {
 
     public static void main(String[] args) {

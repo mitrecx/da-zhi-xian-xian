@@ -1,8 +1,8 @@
-package top.mitrecx.dazhixianxian.dal.dao.ext;
+package top.mitrecx.dazhixianxian.mapper.ext;
 
 import org.apache.ibatis.annotations.Param;
-import top.mitrecx.dazhixianxian.dal.dao.DzUserMapper;
-import top.mitrecx.dazhixianxian.dal.entity.DzUser;
+import top.mitrecx.dazhixianxian.domain.po.DzUser;
+import top.mitrecx.dazhixianxian.mapper.DzUserMapper;
 
 public interface DzUserExtMapper extends DzUserMapper {
     DzUser selectByLoginName(@Param("loginName") String loginName);

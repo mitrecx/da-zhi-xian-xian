@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import top.mitrecx.dazhixianxian.common.dataformat.ObjectMappers;
-import top.mitrecx.dazhixianxian.dal.dao.ext.DzUserExtMapper;
-import top.mitrecx.dazhixianxian.dal.entity.DzUser;
+import top.mitrecx.dazhixianxian.mapper.ext.DzUserExtMapper;
+import top.mitrecx.dazhixianxian.domain.po.DzUser;
 
 @Service("userDetailsService")
 @Slf4j

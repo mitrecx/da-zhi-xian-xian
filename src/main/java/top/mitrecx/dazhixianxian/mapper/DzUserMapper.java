@@ -1,6 +1,6 @@
-package top.mitrecx.dazhixianxian.dal.dao;
+package top.mitrecx.dazhixianxian.mapper;
 
-import top.mitrecx.dazhixianxian.dal.entity.DzUser;
+import top.mitrecx.dazhixianxian.domain.po.DzUser;
 
 public interface DzUserMapper {
     /**
