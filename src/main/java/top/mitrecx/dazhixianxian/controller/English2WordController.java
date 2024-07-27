@@ -2,6 +2,8 @@ package top.mitrecx.dazhixianxian.controller;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,11 +30,25 @@ import top.mitrecx.dazhixianxian.service.IEnglish2WordService;
 public class English2WordController {
     private final IEnglish2WordService english2WordService;
 
-    @ApiOperation("新增")
+    @ApiOperation("新增或更新(wordId 或者 word)")
     @PostMapping
     public void add(@RequestBody English2WordDTO english2WordDTO) {
         English2Word english2Word = BeanUtil.copyProperties(english2WordDTO, English2Word.class);
-        english2WordService.save(english2Word);
+        QueryWrapper<English2Word> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("word_id", english2Word.getWordId()).or().eq("word", english2Word.getWord());
+        English2Word one = english2WordService.getOne(queryWrapper);
+
+        if (one != null) {
+            if (one.getWordId().equals(english2Word.getWordId())) {
+                english2WordService.updateById(english2Word);
+            } else {
+                UpdateWrapper<English2Word> updateWrapper = new UpdateWrapper<>();
+                updateWrapper.eq("word", english2Word.getWord());
+                english2WordService.update(english2Word, updateWrapper);
+            }
+        } else {
+            english2WordService.save(english2Word);
+        }
     }
 
     @ApiOperation("查询")
