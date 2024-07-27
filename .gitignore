@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+src/main/resources/jks-password.txt
+src/main/resources/mitrecx.top.jks

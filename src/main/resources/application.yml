@@ -1,5 +1,11 @@
 server:
   port: 8001
+  #port: 443
+  #ssl:
+  #  key-store-password: 1ozrddug
+  #  key-store-type: JKS
+  #  key-store: classpath:mitrecx.top.jks
+  #  key-alias: tomcat
   # 设置会话超时时间（单位：秒）
   servlet:
     session:

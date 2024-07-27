@@ -50,5 +50,13 @@ public class English2WordController {
         return page;
     }
 
+    @ApiOperation("查询")
+    @PostMapping("/page2")
+    public Page<English2Word> pagePost(@RequestBody BasePage request) {
+        Page<English2Word> of = Page.of(request.getPageNumber(), request.getPageSize());
+        Page<English2Word> page = english2WordService.page(of);
+        return page;
+    }
+
 
 }
