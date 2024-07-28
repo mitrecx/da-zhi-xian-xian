@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2024-07-21
  */
 public interface IEnglish2WordService extends IService<English2Word> {
-
+    int searchPageNumber(String word);
 }

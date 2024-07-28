@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.mitrecx.dazhixianxian.mapper.English2WordMapper">
 
+    <select id="searchPageNumber" resultType="java.lang.Integer">
+        WITH ranked_words AS (
+            SELECT word, ROW_NUMBER() OVER (ORDER BY word_id) AS row_num
+            FROM t_english2_word
+        )
+        SELECT row_num
+        FROM ranked_words
+        WHERE word = #{word,jdbcType=VARCHAR}
+    </select>
 </mapper>

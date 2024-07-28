@@ -8,12 +8,17 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import top.mitrecx.dazhixianxian.domain.dto.English2WordDTO;
 import top.mitrecx.dazhixianxian.domain.po.English2Word;
 import top.mitrecx.dazhixianxian.domain.vo.BasePage;
 import top.mitrecx.dazhixianxian.domain.vo.English2WordVO;
 import top.mitrecx.dazhixianxian.service.IEnglish2WordService;
+
+import java.nio.file.Paths;
 
 /**
  * <p>
@@ -52,10 +57,28 @@ public class English2WordController {
     }
 
     @ApiOperation("查询")
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public English2WordVO queryById(@PathVariable String id) {
         English2Word word = english2WordService.getById(id);
         return BeanUtil.copyProperties(word, English2WordVO.class);
+    }
+
+    @ApiOperation("查询")
+    @GetMapping("/query")
+    public English2WordVO queryByWord(@RequestParam(value = "word") String word) {
+        QueryWrapper<English2Word> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("word", word);
+        English2Word one = english2WordService.getOne(queryWrapper);
+        if (one == null) {
+            return null;
+        }
+        return BeanUtil.copyProperties(one, English2WordVO.class);
+    }
+
+    @ApiOperation("查询")
+    @GetMapping("/search-page-number")
+    public int searchPageNumber(@RequestParam(value = "word") String word) {
+        return english2WordService.searchPageNumber(word);
     }
 
     @ApiOperation("查询")
@@ -66,7 +89,7 @@ public class English2WordController {
         return page;
     }
 
-    @ApiOperation("查询")
+    @ApiOperation("查询 Post 请求")
     @PostMapping("/page2")
     public Page<English2Word> pagePost(@RequestBody BasePage request) {
         Page<English2Word> of = Page.of(request.getPageNumber(), request.getPageSize());
@@ -74,5 +97,19 @@ public class English2WordController {
         return page;
     }
 
+//    @Autowired
+//    private AudioService audioService;
+
+//    @GetMapping("/download/{fileId}")
+//    public ResponseEntity<Resource> downloadFile(@PathVariable Long fileId) {
+////        AudioFile audioFile = audioService.getAudioFileById(fileId);
+//        Path filePath = Paths.get(audioFile.getFilePath());
+//        Resource resource = new UrlResource(filePath.toUri());
+//
+//        return ResponseEntity.ok()
+//                .contentType(MediaType.parseMediaType(audioFile.getFileType()))
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + audioFile.getFileName() + "\"")
+//                .body(resource);
+//    }
 
 }

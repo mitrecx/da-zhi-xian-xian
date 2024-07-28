@@ -13,4 +13,5 @@ import top.mitrecx.dazhixianxian.domain.po.English2Word;
  */
 public interface English2WordMapper extends BaseMapper<English2Word> {
 
+    public Integer searchPageNumber(String word);
 }
