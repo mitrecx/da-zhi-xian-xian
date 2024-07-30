@@ -8,9 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import top.mitrecx.dazhixianxian.domain.dto.English2WordDTO;
 import top.mitrecx.dazhixianxian.domain.po.English2Word;
@@ -18,7 +16,9 @@ import top.mitrecx.dazhixianxian.domain.vo.BasePage;
 import top.mitrecx.dazhixianxian.domain.vo.English2WordVO;
 import top.mitrecx.dazhixianxian.service.IEnglish2WordService;
 
-import java.nio.file.Paths;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * <p>
@@ -100,16 +100,15 @@ public class English2WordController {
 //    @Autowired
 //    private AudioService audioService;
 
-//    @GetMapping("/download/{fileId}")
-//    public ResponseEntity<Resource> downloadFile(@PathVariable Long fileId) {
-////        AudioFile audioFile = audioService.getAudioFileById(fileId);
-//        Path filePath = Paths.get(audioFile.getFilePath());
-//        Resource resource = new UrlResource(filePath.toUri());
-//
-//        return ResponseEntity.ok()
-//                .contentType(MediaType.parseMediaType(audioFile.getFileType()))
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + audioFile.getFileName() + "\"")
-//                .body(resource);
-//    }
+    @GetMapping(value = "/download/{word}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public byte[] downloadFile(@PathVariable String word) throws IOException {
+//        File file = new File("/Users/chenxing/Downloads/word_audio/" + word + ".mp3");
+        File file = new File("/home/miyan/word-audio/" + word + ".mp3");
+        try (FileInputStream inputStream = new FileInputStream(file)) {
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes, 0, inputStream.available());
+            return bytes;
+        }
+    }
 
 }
