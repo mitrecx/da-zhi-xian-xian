@@ -39,4 +39,10 @@ public class English2WordVO {
 
     @ApiModelProperty(value = "频率")
     private Integer frequency;
+
+    @ApiModelProperty(value = "牛津词典")
+    private String oxford;
+
+    @ApiModelProperty(value = "是否已经导入牛津词典")
+    private Boolean oxfordPopulate;
 }
