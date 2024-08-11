@@ -94,6 +94,9 @@ public class English2WordController {
     public Page<English2Word> pagePost(@RequestBody BasePage request) {
         Page<English2Word> of = Page.of(request.getPageNumber(), request.getPageSize());
         Page<English2Word> page = english2WordService.page(of);
+        page.getRecords().forEach(english2Word -> {
+            english2Word.setOxford("");
+        });
         return page;
     }
 
