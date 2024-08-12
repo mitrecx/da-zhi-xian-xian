@@ -47,9 +47,9 @@ public class MySecurityConfig {
 //         configuration.setAllowedOrigins(Arrays.asList("*"));
 
         // the CORS spec does not allow "*" when allowCredentials is set to true
-        configuration.setAllowedOriginPatterns(Arrays.asList("http://*"
-               /*, "http://139.196.20.110*",
-                "http://localhost*"*/));
+        configuration.setAllowedOriginPatterns(Arrays.asList("https://mitrecx.top",
+                "http://mitrecx.top"
+                /*"http://localhost*"*/));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
