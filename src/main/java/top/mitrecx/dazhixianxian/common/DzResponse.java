@@ -24,6 +24,26 @@ public class DzResponse<T> {
         return new Builder<>();
     }
 
+    public static <TT> DzResponse<TT> ok(TT data) {
+        return new DzResponse<>(BizCode.OK.code, BizCode.OK.getMessage(), data);
+    }
+
+    public static DzResponse<Void> ok() {
+        return new DzResponse<>(BizCode.OK.code, BizCode.OK.getMessage(), null);
+    }
+
+    public static <TT> DzResponse<TT> fail(BizCode bizCode, TT data) {
+        return new DzResponse<>(bizCode.code, bizCode.getMessage(), data);
+    }
+
+    public static DzResponse<?> fail(BizCode bizCode) {
+        return new DzResponse<>(bizCode.code, bizCode.getMessage(), null);
+    }
+
+    public static DzResponse<?> fail(BizCode bizCode, String message) {
+        String msg = String.format(bizCode.getMessage(), message);
+        return new DzResponse<>(bizCode.code, msg, null);
+    }
 
     // 静态内部类Builder
     public static class Builder<T> {
@@ -67,6 +87,12 @@ public class DzResponse<T> {
         public Builder<T> fail(BizCode bizCode) {
             this.code = bizCode.code;
             this.message = bizCode.getMessage();
+            return this;
+        }
+
+        public Builder<T> fail(BizCode bizCode, String message) {
+            this.code = bizCode.code;
+            this.message = String.format(bizCode.getMessage(), message);
             return this;
         }
 

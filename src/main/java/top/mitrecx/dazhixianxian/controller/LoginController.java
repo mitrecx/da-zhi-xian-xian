@@ -16,7 +16,7 @@ public class LoginController {
 
     @GetMapping("/hello2")
     public DzResponse<String> hello2() {
-        return DzResponse.<String>builder().ok("hello world2").build();
+        return DzResponse.ok("hello world2");
     }
 
 }

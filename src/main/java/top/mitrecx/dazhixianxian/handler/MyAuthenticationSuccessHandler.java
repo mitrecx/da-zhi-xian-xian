@@ -28,7 +28,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         PrintWriter writer = response.getWriter();
-        writer.write(ObjectMappers.mustWriteValue(DzResponse.builder().ok(request.getCookies()).build()));
+        writer.write(ObjectMappers.mustWriteValue(DzResponse.ok(request.getCookies())));
         writer.flush();
     }
 

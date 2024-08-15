@@ -1,34 +1,23 @@
-package top.mitrecx.dazhixianxian.domain.po;
+package top.mitrecx.dazhixianxian.domain.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author cx
  * @since 2024-08-15
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("t_dz_user")
-@ApiModel(value="DzUser对象", description="")
-public class DzUser implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @TableId(value = "user_id", type = IdType.AUTO)
+@ApiModel(value = "DzUser对象", description = "")
+public class DzUserVO {
+    @ApiModelProperty(value = "用户ID")
     private Long userId;
 
     @ApiModelProperty(value = "登录名")
@@ -37,8 +26,8 @@ public class DzUser implements Serializable {
     @ApiModelProperty(value = "用户名/昵称")
     private String username;
 
-    @ApiModelProperty(value = "密码")
-    private String password;
+    //@ApiModelProperty(value = "密码")
+    //private String password;
 
     @ApiModelProperty(value = "邮箱")
     private String email;

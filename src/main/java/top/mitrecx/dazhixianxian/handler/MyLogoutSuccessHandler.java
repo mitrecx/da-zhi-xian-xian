@@ -22,7 +22,7 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
 
         response.setContentType(ContentType.APPLICATION_JSON.toString());
         try (PrintWriter out = response.getWriter()) {
-            out.print(ObjectMappers.mustWriteValue(DzResponse.builder().ok()));
+            out.print(ObjectMappers.mustWriteValue(DzResponse.ok()));
             out.flush();
         }
     }

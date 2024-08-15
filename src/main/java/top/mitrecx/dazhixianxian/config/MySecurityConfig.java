@@ -48,8 +48,8 @@ public class MySecurityConfig {
 
         // the CORS spec does not allow "*" when allowCredentials is set to true
         configuration.setAllowedOriginPatterns(Arrays.asList("https://mitrecx.top",
-                "http://mitrecx.top"
-                /*"http://localhost*"*/));
+                "http://mitrecx.top",
+                "http://localhost*"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
@@ -84,6 +84,8 @@ public class MySecurityConfig {
                                     .requestMatchers("/doc/**").permitAll()
                                     .requestMatchers("/doc").permitAll()
                                     .requestMatchers("/v1/english2-word/**").permitAll()
+                                    .requestMatchers("/v1/notebook-content/**").permitAll()
+                                    .requestMatchers("/v1/user/**").permitAll()
                                     .requestMatchers("/v1/**").authenticated()
                                     .anyRequest().permitAll();
                         }

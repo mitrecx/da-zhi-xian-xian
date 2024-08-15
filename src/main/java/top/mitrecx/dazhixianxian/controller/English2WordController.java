@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import top.mitrecx.dazhixianxian.domain.dto.English2WordDTO;
 import top.mitrecx.dazhixianxian.domain.po.English2Word;
-import top.mitrecx.dazhixianxian.domain.vo.BasePage;
+import top.mitrecx.dazhixianxian.domain.vo.BasePageRequest;
 import top.mitrecx.dazhixianxian.domain.vo.English2WordVO;
 import top.mitrecx.dazhixianxian.service.IEnglish2WordService;
 
@@ -83,7 +83,7 @@ public class English2WordController {
 
     @ApiOperation("查询")
     @GetMapping("/page")
-    public Page<English2Word> page(@RequestBody BasePage request) {
+    public Page<English2Word> page(@RequestBody BasePageRequest request) {
         Page<English2Word> of = Page.of(request.getPageNumber(), request.getPageSize());
         Page<English2Word> page = english2WordService.page(of);
         return page;
@@ -91,7 +91,7 @@ public class English2WordController {
 
     @ApiOperation("查询 Post 请求")
     @PostMapping("/page2")
-    public Page<English2Word> pagePost(@RequestBody BasePage request) {
+    public Page<English2Word> pagePost(@RequestBody BasePageRequest request) {
         Page<English2Word> of = Page.of(request.getPageNumber(), request.getPageSize());
         Page<English2Word> page = english2WordService.page(of);
         page.getRecords().forEach(english2Word -> {

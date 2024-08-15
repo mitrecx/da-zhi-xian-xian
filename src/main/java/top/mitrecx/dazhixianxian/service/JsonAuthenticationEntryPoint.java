@@ -26,7 +26,7 @@ public class JsonAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
         response.setContentType(ContentType.APPLICATION_JSON.toString());
         try (PrintWriter out = response.getWriter()) {
-            out.print(ObjectMappers.mustWriteValue(DzResponse.builder().fail(LOGIN_UNAUTHENTICATED_ERROR).build()));
+            out.print(ObjectMappers.mustWriteValue(DzResponse.fail(LOGIN_UNAUTHENTICATED_ERROR)));
             out.flush();
         }
     }
