@@ -7,6 +7,7 @@ import top.mitrecx.dazhixianxian.domain.po.DzUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import top.mitrecx.dazhixianxian.domain.vo.BasePageRequest;
 import top.mitrecx.dazhixianxian.domain.vo.DzUserVO;
+import top.mitrecx.dazhixianxian.domain.vo.PageUserRequest;
 
 import java.util.List;
 
@@ -27,5 +28,5 @@ public interface IDzUserService extends IService<DzUser> {
 
     DzResponse<DzUserVO> detailsUser(Long userId);
 
-    DzResponse<Page<DzUserVO>> pageUser(BasePageRequest request);
+    DzResponse<Page<DzUserVO>> pageUser(PageUserRequest request);
 }

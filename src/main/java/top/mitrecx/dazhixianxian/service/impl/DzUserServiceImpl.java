@@ -13,8 +13,8 @@ import top.mitrecx.dazhixianxian.common.DzResponse;
 import top.mitrecx.dazhixianxian.domain.dto.DzUserDTO;
 import top.mitrecx.dazhixianxian.domain.po.DzConfig;
 import top.mitrecx.dazhixianxian.domain.po.DzUser;
-import top.mitrecx.dazhixianxian.domain.vo.BasePageRequest;
 import top.mitrecx.dazhixianxian.domain.vo.DzUserVO;
+import top.mitrecx.dazhixianxian.domain.vo.PageUserRequest;
 import top.mitrecx.dazhixianxian.mapper.DzUserMapper;
 import top.mitrecx.dazhixianxian.service.IDzConfigService;
 import top.mitrecx.dazhixianxian.service.IDzUserService;
@@ -123,15 +123,33 @@ public class DzUserServiceImpl extends ServiceImpl<DzUserMapper, DzUser> impleme
     }
 
     @Override
-    public DzResponse<Page<DzUserVO>> pageUser(BasePageRequest request) {
+    public DzResponse<Page<DzUserVO>> pageUser(PageUserRequest request) {
         // 1. 校验参数
         if (request == null) {
             return DzResponse.<Page<DzUserVO>>builder().fail(REQUEST_ARGUMENTS_ERROR, "请求参数不能为空").build();
         }
         // 2. 分页查询
         Page<DzUser> page = new Page<>(request.getPageNumber(), request.getPageSize());
-        LambdaQueryWrapper<DzUser> queryWrapper = Wrappers.lambdaQuery(DzUser.class)
-                .eq(DzUser::getDeleted, false);
+        LambdaQueryWrapper<DzUser> queryWrapper = Wrappers.lambdaQuery(DzUser.class);
+        if (StringUtils.isNotBlank(request.getLoginName())) {
+            queryWrapper.like(DzUser::getLoginName, request.getLoginName());
+        }
+        if (StringUtils.isNotBlank(request.getUsername())) {
+            queryWrapper.like(DzUser::getUsername, request.getUsername());
+        }
+        if (StringUtils.isNotBlank(request.getEmail())) {
+            queryWrapper.like(DzUser::getEmail, request.getEmail());
+        }
+        if (StringUtils.isNotBlank(request.getPhone())) {
+            queryWrapper.like(DzUser::getPhone, request.getPhone());
+        }
+        if (StringUtils.isNotBlank(request.getStatus())) {
+            queryWrapper.eq(DzUser::getStatus, request.getStatus());
+        }
+        if (request.getDeleted() != null) {
+            queryWrapper.eq(DzUser::getDeleted, request.getDeleted());
+        }
+
         Page<DzUser> pageData = this.page(page, queryWrapper);
         // 3. 转换
         List<DzUserVO> list = new ArrayList<>();
