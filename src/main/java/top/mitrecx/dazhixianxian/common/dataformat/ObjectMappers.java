@@ -5,12 +5,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
 
 public class ObjectMappers {
-    private static final ObjectMapper DEFAULT_INSTANCE = new ObjectMapper();
+    private static final ObjectMapper DEFAULT_INSTANCE = new Jackson2ObjectMapperBuilder().modules(new JavaTimeModule()).build();
 
     private static final ObjectMapper SNAKE_CASE_INSTANCE = new ObjectMapper();
 

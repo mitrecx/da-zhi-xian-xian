@@ -83,9 +83,9 @@ public class MySecurityConfig {
                                     .requestMatchers("/v1/about").permitAll()
                                     .requestMatchers("/doc/**").permitAll()
                                     .requestMatchers("/doc").permitAll()
-                                    .requestMatchers("/v1/english2-word/**").permitAll()
-                                    .requestMatchers("/v1/notebook-content/**").permitAll()
-                                    .requestMatchers("/v1/user/**").permitAll()
+//                                    .requestMatchers("/v1/english2-word/**").permitAll()
+//                                    .requestMatchers("/v1/notebook-content/**").permitAll()
+//                                    .requestMatchers("/v1/user/**").permitAll()
                                     .requestMatchers("/v1/**").authenticated()
                                     .anyRequest().permitAll();
                         }

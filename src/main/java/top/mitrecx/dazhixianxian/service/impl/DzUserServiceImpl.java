@@ -83,8 +83,8 @@ public class DzUserServiceImpl extends ServiceImpl<DzUserMapper, DzUser> impleme
         if (exist == null) {
             return DzResponse.fail(REQUEST_ARGUMENTS_ERROR, "用户不存在");
         }
-
-        request.setPassword(passwordEncoder.encode(request.getPassword()));
+        // 密码不可修改
+        // request.setPassword(passwordEncoder.encode(request.getPassword()));
         // 2. 更新
         DzUser userPo = new DzUser();
         BeanUtils.copyProperties(request, userPo);
