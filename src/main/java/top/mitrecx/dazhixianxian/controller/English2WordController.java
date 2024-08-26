@@ -21,10 +21,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
- * <p>
- * 自考英语二单词手册 前端控制器
- * </p>
- *
  * @author cx
  * @since 2024-07-21
  */
@@ -99,9 +95,6 @@ public class English2WordController {
         });
         return page;
     }
-
-//    @Autowired
-//    private AudioService audioService;
 
     @GetMapping(value = "/download/{word}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] downloadFile(@PathVariable String word) throws IOException {
