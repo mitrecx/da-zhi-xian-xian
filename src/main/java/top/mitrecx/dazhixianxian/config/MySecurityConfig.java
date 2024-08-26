@@ -25,6 +25,8 @@ import top.mitrecx.dazhixianxian.handler.MyAccessDeniedHandler;
 import top.mitrecx.dazhixianxian.handler.MyAuthenticationFailureHandler;
 import top.mitrecx.dazhixianxian.handler.MyAuthenticationSuccessHandler;
 import top.mitrecx.dazhixianxian.handler.MyLogoutSuccessHandler;
+import top.mitrecx.dazhixianxian.mapper.AuthMapper;
+import top.mitrecx.dazhixianxian.mapper.UserMapper;
 import top.mitrecx.dazhixianxian.service.JsonAuthenticationEntryPoint;
 import top.mitrecx.dazhixianxian.service.JsonAuthenticationFilter;
 
@@ -40,6 +42,11 @@ public class MySecurityConfig {
     private JsonAuthenticationEntryPoint jsonAuthenticationEntryPoint;
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private AuthMapper authMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -124,7 +131,7 @@ public class MySecurityConfig {
         // 解决 json 参数登录时 sessionId 不变的问题
         loginFilter.setSessionAuthenticationStrategy(new ChangeSessionIdAuthenticationStrategy());
         // 设置login成功返回的JSON数据
-        loginFilter.setAuthenticationSuccessHandler(new MyAuthenticationSuccessHandler());
+        loginFilter.setAuthenticationSuccessHandler(new MyAuthenticationSuccessHandler(authMapper, userMapper));
         // 设置login失败返回的JSON数据
         loginFilter.setAuthenticationFailureHandler(new MyAuthenticationFailureHandler());
         // 解决 登录成功后, session 无效问题(其他接口还是要求认证问题)

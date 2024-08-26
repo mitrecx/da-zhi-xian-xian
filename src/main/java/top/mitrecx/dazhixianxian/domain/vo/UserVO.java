@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
  * @since 2024-08-15
  */
 @Data
-@ApiModel(value = "DzUser对象", description = "")
-public class DzUserVO {
+@ApiModel(value = "User对象", description = "")
+public class UserVO {
     @ApiModelProperty(value = "用户ID")
     private Long userId;
 

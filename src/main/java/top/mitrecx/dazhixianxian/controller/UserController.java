@@ -4,34 +4,35 @@ package top.mitrecx.dazhixianxian.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 import top.mitrecx.dazhixianxian.common.DzResponse;
-import top.mitrecx.dazhixianxian.domain.dto.DzUserDTO;
-import top.mitrecx.dazhixianxian.domain.vo.BasePageRequest;
-import top.mitrecx.dazhixianxian.domain.vo.DzUserVO;
+import top.mitrecx.dazhixianxian.domain.dto.UserDTO;
+import top.mitrecx.dazhixianxian.domain.vo.UserVO;
 import top.mitrecx.dazhixianxian.domain.vo.PageUserRequest;
-import top.mitrecx.dazhixianxian.service.IDzUserService;
+import top.mitrecx.dazhixianxian.service.IUserService;
 
 /**
  * <p>
- * 前端控制器
+ * 用户表 前端控制器
  * </p>
  *
  * @author cx
- * @since 2024-08-15
+ * @since 2024-08-26
  */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/user")
-public class DzUserController {
-    private final IDzUserService service;
+public class UserController {
+
+    private final IUserService service;
 
     @PostMapping("/add")
-    public DzResponse<?> add(@RequestBody DzUserDTO request) {
+    public DzResponse<?> add(@RequestBody UserDTO request) {
         return service.addUser(request);
     }
 
     @PutMapping("/update")
-    public DzResponse<?> update(@RequestBody DzUserDTO request) {
+    public DzResponse<?> update(@RequestBody UserDTO request) {
         return service.updateUser(request);
     }
 
@@ -41,12 +42,13 @@ public class DzUserController {
     }
 
     @GetMapping("/details/{userId}")
-    public DzResponse<DzUserVO> details(@PathVariable("userId") Long userId) {
+    public DzResponse<UserVO> details(@PathVariable("userId") Long userId) {
         return service.detailsUser(userId);
     }
 
     @PostMapping("/page")
-    public DzResponse<Page<DzUserVO>> page(@RequestBody PageUserRequest request) {
+    public DzResponse<Page<UserVO>> page(@RequestBody PageUserRequest request) {
         return service.pageUser(request);
     }
+
 }

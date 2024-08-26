@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.mitrecx.dazhixianxian.mapper.AuthMapper">
+    <resultMap id="AuthDTOMap" type="top.mitrecx.dazhixianxian.domain.dto.AuthDTO">
+        <id column="auth_id" property="authId"/>
+        <result column="auth_name" property="authName"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="auth_type" property="authType"/>
+        <result column="auth_level" property="authLevel"/>
+        <result column="auth_order" property="authOrder"/>
+    </resultMap>
+
+    <select id="findAuthByLoginName" resultMap="AuthDTOMap">
+        select ta.auth_id, ta.auth_name, ta.parent_id, ta.auth_type, ta.auth_level, ta.auth_order
+        from t_user tu
+                 left join t_user_role_ref turr on tu.user_id = turr.user_id
+                 left join t_role_auth_ref trar on turr.role_id = trar.role_id
+                 left join t_auth ta on trar.auth_id = ta.auth_id
+        where tu.login_name = #{loginName};
+    </select>
+</mapper>

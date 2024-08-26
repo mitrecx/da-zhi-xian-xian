@@ -11,14 +11,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import top.mitrecx.dazhixianxian.common.dataformat.ObjectMappers;
-import top.mitrecx.dazhixianxian.mapper.DzUserMapper;
-import top.mitrecx.dazhixianxian.domain.po.DzUser;
+import top.mitrecx.dazhixianxian.mapper.UserMapper;
 
 @Service("userDetailsService")
 @Slf4j
 public class MyUserDetailsService implements UserDetailsService {
     @Resource
-    private DzUserMapper dzUserMapper;
+    private UserMapper userMapper;
 
     public static void main(String[] args) {
         String encode = new BCryptPasswordEncoder().encode("root");
@@ -28,9 +27,9 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String loginName)
             throws UsernameNotFoundException {
-        LambdaQueryWrapper<DzUser> query = new LambdaQueryWrapper<>();
-        query.eq(DzUser::getLoginName, loginName);
-        DzUser dzUser = dzUserMapper.selectOne(query);
+        LambdaQueryWrapper<top.mitrecx.dazhixianxian.domain.po.User> query = new LambdaQueryWrapper<>();
+        query.eq(top.mitrecx.dazhixianxian.domain.po.User::getLoginName, loginName);
+        top.mitrecx.dazhixianxian.domain.po.User dzUser = userMapper.selectOne(query);
         log.info("登录用户名: {}, 用户信息: {}", loginName, ObjectMappers.mustWriteValue(dzUser));
 
         // 如果用户不存在, 抛出 UsernameNotFoundException

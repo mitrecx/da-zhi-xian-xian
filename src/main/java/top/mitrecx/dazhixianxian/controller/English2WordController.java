@@ -36,7 +36,7 @@ public class English2WordController {
     private final IEnglish2WordService english2WordService;
 
     @ApiOperation("新增或更新(wordId 或者 word)")
-    @PostMapping
+    @PostMapping("/add")
     public void add(@RequestBody English2WordDTO english2WordDTO) {
         English2Word english2Word = BeanUtil.copyProperties(english2WordDTO, English2Word.class);
         QueryWrapper<English2Word> queryWrapper = new QueryWrapper<>();

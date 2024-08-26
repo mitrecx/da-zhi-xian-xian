@@ -13,8 +13,8 @@ import lombok.Data;
  * @since 2024-08-15
  */
 @Data
-@ApiModel(value = "DzUser对象", description = "")
-public class DzUserDTO {
+@ApiModel(value = "User对象", description = "")
+public class UserDTO {
     @ApiModelProperty(value = "用户 id")
     private Long userId;
     @ApiModelProperty(value = "登录名")
