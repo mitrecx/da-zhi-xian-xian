@@ -12,6 +12,9 @@ import top.mitrecx.dazhixianxian.common.dataformat.ObjectMappers;
 
 import java.io.IOException;
 
+/**
+ * 处理身份验证表单提交 的过滤器
+ */
 public class JsonAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     public JsonAuthenticationFilter(AuthenticationManager authenticationManager) {

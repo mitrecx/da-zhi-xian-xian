@@ -16,6 +16,9 @@ import java.io.PrintWriter;
 
 import static top.mitrecx.dazhixianxian.common.BizCode.LOGIN_UNAUTHENTICATED_ERROR;
 
+/**
+ * 由 ExceptionTranslationFilter 使用, 开启一个认证方案(authentication scheme)
+ */
 @Component
 public class JsonAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

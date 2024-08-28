@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @ApiModel(value = "User对象", description = "")
 public class UserVO {
     @ApiModelProperty(value = "用户ID")
-    private Long userId;
+    private Integer userId;
 
     @ApiModelProperty(value = "登录名")
     private String loginName;

@@ -11,6 +11,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -85,9 +86,12 @@ public class MySecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable() // 禁用 CSRF 保护，因为我们是通过 API 进行认证
                 .cors(Customizer.withDefaults())
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
                 .authorizeHttpRequests(request -> {
                             request.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                     .requestMatchers("/v1/about").permitAll()
+                                    .requestMatchers("/v2/login").anonymous()
                                     .requestMatchers("/doc/**").permitAll()
                                     .requestMatchers("/doc").permitAll()
 //                                    .requestMatchers("/v1/english2-word/**").permitAll()
