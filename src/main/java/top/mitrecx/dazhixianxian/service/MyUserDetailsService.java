@@ -3,14 +3,13 @@ package top.mitrecx.dazhixianxian.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import top.mitrecx.dazhixianxian.common.dataformat.ObjectMappers;
+import top.mitrecx.dazhixianxian.domain.dto.LoginUser;
 import top.mitrecx.dazhixianxian.mapper.UserMapper;
 
 @Service("userDetailsService")
@@ -36,9 +35,10 @@ public class MyUserDetailsService implements UserDetailsService {
         if (dzUser == null) {
             throw new UsernameNotFoundException("not found.");
         }
-        return User.withUsername(loginName)
-                .password(dzUser.getPassword())
-                .authorities(AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal,/main.html"))
-                .build();
+//        return User.withUsername(loginName)
+//                .password(dzUser.getPassword())
+//                .authorities(AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal,/main.html"))
+//                .build();
+        return new LoginUser(dzUser);
     }
 }

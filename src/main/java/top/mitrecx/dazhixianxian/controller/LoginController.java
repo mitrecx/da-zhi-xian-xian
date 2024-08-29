@@ -10,14 +10,19 @@ import top.mitrecx.dazhixianxian.service.LoginRequest;
 import top.mitrecx.dazhixianxian.service.LoginService;
 
 @RestController
-@RequestMapping("/v2/login")
+@RequestMapping("/v2")
 public class LoginController {
 
     @Autowired
     private LoginService loginService;
 
-    @PostMapping
+    @PostMapping("/login")
     public DzResponse login(@RequestBody LoginRequest request) {
         return loginService.login(request);
+    }
+
+    @PostMapping("/logout")
+    public DzResponse logout() {
+        return loginService.logout();
     }
 }

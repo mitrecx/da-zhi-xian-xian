@@ -11,7 +11,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +21,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import top.mitrecx.dazhixianxian.JwtAuthenticationTokenFilter;
 import top.mitrecx.dazhixianxian.handler.MyAccessDeniedHandler;
 import top.mitrecx.dazhixianxian.handler.MyAuthenticationFailureHandler;
 import top.mitrecx.dazhixianxian.handler.MyAuthenticationSuccessHandler;
@@ -48,6 +48,8 @@ public class MySecurityConfig {
     private AuthMapper authMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -97,7 +99,7 @@ public class MySecurityConfig {
 //                                    .requestMatchers("/v1/english2-word/**").permitAll()
 //                                    .requestMatchers("/v1/notebook-content/**").permitAll()
 //                                    .requestMatchers("/v1/user/**").permitAll()
-                                    .requestMatchers("/v1/**").authenticated()
+                                    .requestMatchers("/**").authenticated()
                                     .anyRequest().permitAll();
                         }
                 )
@@ -118,6 +120,7 @@ public class MySecurityConfig {
                 .authenticationEntryPoint(jsonAuthenticationEntryPoint)
 //                .httpBasic(withDefaults())
         ;
+        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
