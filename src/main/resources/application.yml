@@ -57,3 +57,4 @@ knife4j:
         api-rule: package
         api-rule-resources:
           - top.mitrecx.dazhixianxian.controller
+

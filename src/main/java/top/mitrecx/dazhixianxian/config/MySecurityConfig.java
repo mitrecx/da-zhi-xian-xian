@@ -21,7 +21,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import top.mitrecx.dazhixianxian.JwtAuthenticationTokenFilter;
+import top.mitrecx.dazhixianxian.filter.JwtAuthenticationTokenFilter;
 import top.mitrecx.dazhixianxian.handler.MyAccessDeniedHandler;
 import top.mitrecx.dazhixianxian.handler.MyAuthenticationFailureHandler;
 import top.mitrecx.dazhixianxian.handler.MyAuthenticationSuccessHandler;
@@ -94,8 +94,8 @@ public class MySecurityConfig {
                             request.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                     .requestMatchers("/v1/about").permitAll()
                                     .requestMatchers("/v2/login").anonymous()
-                                    .requestMatchers("/doc/**").permitAll()
-                                    .requestMatchers("/doc").permitAll()
+//                                    .requestMatchers("/doc/**").permitAll()
+//                                    .requestMatchers("/doc").permitAll()
 //                                    .requestMatchers("/v1/english2-word/**").permitAll()
 //                                    .requestMatchers("/v1/notebook-content/**").permitAll()
 //                                    .requestMatchers("/v1/user/**").permitAll()
